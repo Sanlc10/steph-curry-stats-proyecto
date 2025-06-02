@@ -16,7 +16,7 @@ st.write('''Stephen Curry es un jugador profesional de la NBA ampliamente
          visualizamos sus estadísticas de puntos por partido y triples por 
          partido durante la temporada regular desde 2009 hasta 2021.''')
 
-# Creamos un checkbox para mostrar el histograma.
+# Creamos un checkbox para mostrar el histograma y su explicación.
 ppg_checkbox = st.checkbox('Distribución de PPP de Steph Curry')
 
 if ppg_checkbox:
@@ -29,11 +29,15 @@ if ppg_checkbox:
                        )
     st.plotly_chart(fig, use_container_width=True)
 
+    st.write('''Podemos ver la distribución de puntos por partido de Stephen Curry, es una distribución de Gauss
+             cuya media esta alrededor de 24 a 25 puntos, podemos ver que los valores están en un rango de 0 a 63 puntos, 
+             siendo 63 el "Carreer high" de Stephen Curry.''')
+
 # Convertimos el resultado tipo categórico a tipo númerico para poder calcular la correlación si es necesario.
 curry_stats['Numerical_result'] = curry_stats['Result'].str.replace(
     'W', '1').str.replace('L', '0').astype(int)
 
-# Creamos otro checkbox para mostrar el gráfico de dispersión.
+# Creamos otro checkbox para mostrar el gráfico de dispersión y su explicación.
 corr_checkbox = st.checkbox(
     'Gráfico de dispersión: Puntos de Curry vs Resultado del partido')
 if corr_checkbox:
