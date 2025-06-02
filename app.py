@@ -9,7 +9,7 @@ import streamlit as st
 # Abrimos el archivo csv para elaborar nuestras visualizaciones.
 curry_stats = pd.read_csv('./steph_curry_regular_season_stats.csv')
 
-st.header('EDA: Stephen Curry (PTS per game / 3\'s per game)')
+st.header('EDA: Stephen Curry (Puntos por partido / Resultados del equipo)')
 st.write('''Stephen Curry es un jugador profesional de la NBA ampliamente 
          reconocido por revolucionar el juego con su precisión en los tiros 
          de tres puntos. En este análisis exploratorio de datos (EDA), 
