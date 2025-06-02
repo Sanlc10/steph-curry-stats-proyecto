@@ -16,9 +16,10 @@ st.write('''Stephen Curry es un jugador profesional de la NBA ampliamente
          visualizamos sus estadísticas de puntos por partido y triples por 
          partido durante la temporada regular desde 2009 hasta 2021.''')
 
-ppg_button = st.button('Distribución de PPP de Steph Curry')
+# Creamos un checkbox para mostrar el histograma.
+ppg_checkbox = st.checkbox('Distribución de PPP de Steph Curry')
 
-if ppg_button:
+if ppg_checkbox:
     fig = px.histogram(curry_stats,
                        x="PTS",
                        title="Distribución de puntos por partido de Stephen Curry",
@@ -27,3 +28,26 @@ if ppg_button:
                                }
                        )
     st.plotly_chart(fig, use_container_width=True)
+
+# Convertimos el resultado tipo categórico a tipo númerico para poder calcular la correlación si es necesario.
+curry_stats['Numerical_result'] = curry_stats['Result'].str.replace(
+    'W', '1').str.replace('L', '0').astype(int)
+
+# Creamos otro checkbox para mostrar el gráfico de dispersión.
+corr_checkbox = st.checkbox(
+    'Gráfico de dispersión: Puntos de Curry vs Resultado del partido')
+if corr_checkbox:
+    pts_vs_result = px.scatter(curry_stats,
+                               x='PTS',
+                               y='Numerical_result',
+                               title='Puntos de Steph Curry vs resultado del equipo(victoria o derrota)',
+                               labels={'PTS': 'Número de puntos',
+                                       'Numerical_result': 'Resultado del partido(victoria=1, derrota=0)'})
+    st.plotly_chart(pts_vs_result, use_container_width=True)
+
+    st.write('''El gráfico de arriba nos muestra la relación que hay entre los puntos por partido
+             de Stephen Curry y el resultado del partido, ya sea victoria o derrota para el equipo.
+             Se puede ver que los datos están demasiado dispersos, lo que indica que no hay una 
+             correlación fuerte entre estas dos variables, aunque la correlación es positiva, es debil. 
+             Esto nos permite saber e identificar que existen muchos otros factores que influyen en el 
+             resultado de un partido, no solo los puntos que Curry anota, aunque si influye.''')
